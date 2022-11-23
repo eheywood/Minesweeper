@@ -5,6 +5,6 @@ project(Minesweeper VERSION 1.0)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
-add_executable(Minesweeper main.c)
+add_executable(Minesweeper main.c generator.c)
 
 target_include_directories(Minesweeper PUBLIC "${PROJECT_BINARY_DIR}")

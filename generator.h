@@ -9,7 +9,9 @@ struct gameBoard {
     uint8_t boardSize;
     uint8_t numOfMines;
 
-    /* some 2d array... */
+    int *board;
+
+    
 };
 
 int test(int);

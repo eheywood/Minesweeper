@@ -17,6 +17,8 @@ struct gameBoard createBoard(uint8_t size,uint8_t mines){
         board.boardSize = size;
         board.numOfMines = mines;
 
+        board.board = calloc(size*size, sizeof(uint8_t));
+
         return board;
 
 };

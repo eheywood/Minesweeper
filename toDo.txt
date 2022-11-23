@@ -1,0 +1,6 @@
+To Do:
+- add 2d array for board
+- print board function
+- have visible board and full board visible board is only what player sees, full board contains all mines and numbers around mines.
+- get value at coord function
+- connected/ getNeighbours function

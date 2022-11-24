@@ -9,13 +9,15 @@ struct gameBoard {
     uint8_t boardSize;
     uint8_t numOfMines;
 
-    int *board;
+    int8_t *board;
 
     
 };
 
-int test(int);
-
 struct gameBoard createBoard(uint8_t,uint8_t);
+
+int randomCoord(uint8_t, int *seed);
+
+int hash(int x);
 
 #endif

@@ -1,7 +1,40 @@
-#include <stdio.h>
-
 #include "main.h"
-#include "generator.h"
+
+/* Print board function */
+
+void printBoard(struct gameBoard board){
+
+    for (int i = 0 ; i < board.boardSize ; i ++){
+        if ( i == 0){
+            printf("   %d",i);
+        } else {
+            printf("  %d", i);
+        }
+        
+
+        if (i == (board.boardSize - 1)){
+            printf("\n");
+        }
+    }
+
+    for ( int y = 0; y < board.boardSize; y++){
+        for( int x = 0 ; x < board.boardSize; x++){
+            if (x == 0){
+                printf("%d  ", y);
+            }
+
+            if (board.board[(y*(board.boardSize))+x] == -1){
+                printf("x  ");
+            } else {
+                printf("%d  ", board.board[(y*(board.boardSize))+x]);
+            }
+
+            if (((x+1) % board.boardSize) == 0){
+                printf("\n");
+            }
+        }
+    }
+};
 
 
 int main() {
@@ -17,15 +50,14 @@ int main() {
 
     /* Create the board */
     board = createBoard(boardSize, numOfMines);
-    
 
     /* Print the board */
+    printBoard(board);
+
 
     /* Player enter co-ordinates of sqaure to check for mine */
 
-    
     return 0;
 }
 
 
-/* Print board function */

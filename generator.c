@@ -48,23 +48,18 @@ struct gameBoard createBoard(uint8_t size,uint8_t mines){
 int8_t getNeighbourMines (struct gameBoard * board_ptr, uint8_t x, uint8_t y){
     int8_t mines = 0;
 
-    //Look at row above (y-1) and row below (y+1)
-    for (int i = -1; i < 2 ; i++){
-        if (board_ptr->board[((y-1)*(board_ptr->boardSize))+(x+i)] == -1){
-            mines += 1;
+    for (int x_offset = -1; x_offset < 2; x_offset++) {
+        for (int y_offset = -1; y_offset < 2; y_offset++) {
+            if ((x + x_offset < 0) || (x + x_offset > board_ptr->boardSize) || (y + y_offset < 0) || (y + y_offset > board_ptr->boardSize)) {
+                continue;
+            }
+
+            if (board_ptr->board[(y + y_offset) * board_ptr->boardSize+(x+x_offset)] == -1) {
+                mines += 1;
+            }
         }
-        if (board_ptr->board[((y+1)*(board_ptr->boardSize))+(x+i)] == -1){
-            mines += 1;
-        }
-    }    
-    //Look at to the left (x-1)
-    if (board_ptr->board[((y)*(board_ptr->boardSize))+(x-1)] == -1){
-            mines += 1;
-        }
-    //Look at to the right (x+1)
-    if (board_ptr->board[((y)*(board_ptr->boardSize))+(x+1)] == -1){
-            mines += 1;
-        }
+    }
+    
     return mines;
 }
 

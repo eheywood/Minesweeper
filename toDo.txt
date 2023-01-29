@@ -1,6 +1,7 @@
 To Do:
-- add 2d array for board
-- print board function
-- have visible board and full board visible board is only what player sees, full board contains all mines and numbers around mines.
+- differentiate between what board the player can see and the "full Board"
+- how to generate visBoard
 - get value at coord function
-- connected/ getNeighbours function
+- reveal sqaure function
+- "one move" function (reveal square or die)
+- winning eval function

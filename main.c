@@ -5,22 +5,28 @@
 void printBoard(struct gameBoard board){
 
     for (int i = 0 ; i < board.boardSize ; i ++){
-        if ( i == 0){
-            printf("   %d",i);
+        if (i == 0){
+            printf("  │ %d",i);
         } else {
             printf("  %d", i);
         }
-        
+    }
+    printf("\n");
 
-        if (i == (board.boardSize - 1)){
-            printf("\n");
+    for (int i = 0 ; i < (board.boardSize*3)+2 ; i ++){
+        
+        if(i == 2){
+            printf("┼");
+        } else {
+            printf("─");
         }
     }
+    printf("\n");
 
     for ( int y = 0; y < board.boardSize; y++){
         for( int x = 0 ; x < board.boardSize; x++){
             if (x == 0){
-                printf("%d  ", y);
+                printf("%d │ ", y);
             }
 
             if (board.board[(y*(board.boardSize))+x] == -1){

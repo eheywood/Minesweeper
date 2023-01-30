@@ -1,7 +1,4 @@
 To Do:
-- differentiate between what board the player can see and the "full Board"
-- how to generate visBoard
-- get value at coord function
 - reveal sqaure function
 - "one move" function (reveal square or die)
-- winning eval function
+

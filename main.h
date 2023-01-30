@@ -10,6 +10,8 @@ int main(void);
 
 void reveal(struct gameBoard * board_ptr, int x, int y);
 
+void dig(struct gameBoard * board_ptr, int x, int y);
+
 void oneMove(struct gameBoard * board_ptr);
 
 int win(struct gameBoard * board_ptr);

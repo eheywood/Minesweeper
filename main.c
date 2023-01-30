@@ -4,6 +4,10 @@
 
 void printBoard(struct gameBoard board){
 
+    /* ■ -> for undug squares (0 on mask) */
+
+    /* ⚑ -> for flagged squares (2 on mask)*/
+
     for (int i = 0 ; i < board.boardSize ; i ++){
         if (i == 0){
             printf("  │ %d",i);
@@ -72,8 +76,18 @@ int main() {
 }
 
 void reveal(struct gameBoard * board_ptr, int x, int y){
+    /* When a player chooses to dig and doesnt hit a mine. 
+    Calculates what to reveal to the player. */
 
 
+}
+
+void dig(struct gameBoard * board_ptr, int x, int y){
+    if (board_ptr->board[(y*(board_ptr->boardSize))+x] == -1){
+        printf("Oh no! You hit a mine! Game over.");
+    } else {
+        reveal (board_ptr,x,y);
+    }
 }
 
 void oneMove(struct gameBoard * board_ptr){
@@ -91,7 +105,7 @@ void oneMove(struct gameBoard * board_ptr){
     scanf(" %c", &opt);
 
     if(opt == 'd'){
-        /*dig that spot (reveal)*/
+        dig(board_ptr,x,y);
     } else if (opt == 'f'){
         /*flag that spot (change mask to 2??)*/
     } else if (opt == 'r'){

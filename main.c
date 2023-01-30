@@ -61,9 +61,63 @@ int main() {
     printBoard(board);
 
 
-    /* Player enter co-ordinates of sqaure to check for mine */
+    /* While not won, call oneMove */
+
+    while(win(&board) == 0){
+        oneMove(&board);
+    }
+
 
     return 0;
 }
 
+void reveal(struct gameBoard * board_ptr, int x, int y){
+
+
+}
+
+void oneMove(struct gameBoard * board_ptr){
+
+    int8_t x,y;
+    char opt = ' ';
+
+    printf("Please enter the x-coordinate:");
+    scanf("%d", &x);
+
+    printf("Please enter the x-coordinate:");
+    scanf("%d", &y);
+
+    printf("Please enter d for dig, f for flag and r to re-enter the co-ordinate:");
+    scanf(" %c", &opt);
+
+    if(opt == 'd'){
+        /*dig that spot (reveal)*/
+    } else if (opt == 'f'){
+        /*flag that spot (change mask to 2??)*/
+    } else if (opt == 'r'){
+        oneMove(board_ptr);
+    } else {
+        printf("Please only enter either d,f or s. Try again. \n");
+        oneMove(board_ptr);
+    }
+}
+
+
+int win(struct gameBoard * board_ptr){
+
+    /* Win if no 0's left in the mask */
+
+    int win = 1;
+
+    for ( int y = 0; y < board_ptr->boardSize; y++){
+        for( int x = 0 ; x < board_ptr->boardSize; x++){
+            if (board_ptr->mask[(y*(board_ptr->boardSize))+x] == 0){
+                win = 0;
+                break;
+            }
+        }
+    }  
+
+    return win;  
+}
 

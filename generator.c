@@ -15,6 +15,7 @@ struct gameBoard createBoard(uint8_t size,uint8_t mines){
     board.numOfMines = mines;
 
     board.board = (int8_t *)calloc(size*size, sizeof(int8_t));
+    board.mask = (int8_t *)calloc(size*size, sizeof(int8_t));
 
     //Generate the mines
     int randCoord;

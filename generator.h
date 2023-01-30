@@ -9,6 +9,7 @@ struct gameBoard {
     uint8_t numOfMines;
 
     int8_t *board;
+    int8_t *mask;
 };
 
 struct gameBoard createBoard(uint8_t,uint8_t);

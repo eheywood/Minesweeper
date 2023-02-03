@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "generator.h"
 
-void printBoard(struct gameBoard board); 
+void printBoard(struct gameBoard * board_ptr); 
 
 int main(void);
 

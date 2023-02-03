@@ -2,13 +2,16 @@
 
 /* Print board function */
 
-void printBoard(struct gameBoard board){
+void printBoard(struct gameBoard * board_ptr){
+
+    long int undug = '■';
+    long int flag = '⚑';
 
     /* ■ -> for undug squares (0 on mask) */
 
     /* ⚑ -> for flagged squares (2 on mask)*/
 
-    for (int i = 0 ; i < board.boardSize ; i ++){
+    for (int i = 0 ; i < board_ptr->boardSize ; i ++){
         if (i == 0){
             printf("  │ %d",i);
         } else {
@@ -17,7 +20,7 @@ void printBoard(struct gameBoard board){
     }
     printf("\n");
 
-    for (int i = 0 ; i < (board.boardSize*3)+2 ; i ++){
+    for (int i = 0 ; i < (board_ptr->boardSize*3)+2 ; i ++){
         
         if(i == 2){
             printf("┼");
@@ -27,19 +30,29 @@ void printBoard(struct gameBoard board){
     }
     printf("\n");
 
-    for ( int y = 0; y < board.boardSize; y++){
-        for( int x = 0 ; x < board.boardSize; x++){
+    for ( int y = 0; y < board_ptr->boardSize; y++){
+        for( int x = 0 ; x < board_ptr->boardSize; x++){
             if (x == 0){
                 printf("%d │ ", y);
             }
 
-            if (board.board[(y*(board.boardSize))+x] == -1){
-                printf("x  ");
-            } else {
-                printf("%d  ", board.board[(y*(board.boardSize))+x]);
-            }
+            if(board_ptr->mask[(y*(board_ptr->boardSize))+x] == 1){
+                if (board_ptr->board[(y*(board_ptr->boardSize))+x] == -1){
+                    //printf("x  ");
+                    continue;
+                } else {
+                    printf("%d  ", board_ptr->board[(y*(board_ptr->boardSize))+x]);
+                }
 
-            if (((x+1) % board.boardSize) == 0){
+            } else if (board_ptr->mask[(y*(board_ptr->boardSize))+x] == 2){
+                printf("⚑  ");
+                
+            } else {
+                printf("■  ");
+            }
+   
+
+            if (((x+1) % board_ptr->boardSize) == 0){
                 printf("\n");
             }
         }
@@ -62,13 +75,14 @@ int main() {
     board = createBoard(boardSize, numOfMines);
 
     /* Print the board */
-    printBoard(board);
+    printBoard(&board);
 
 
     /* While not won, call oneMove */
 
     while(win(&board) == 0){
         oneMove(&board);
+        printBoard(&board);
     }
 
 
@@ -92,27 +106,21 @@ void dig(struct gameBoard * board_ptr, int x, int y){
 
 void oneMove(struct gameBoard * board_ptr){
 
-    int8_t x,y;
-    char opt = ' ';
+    int x, y;
+    char opt;
 
-    printf("Please enter the x-coordinate:");
-    scanf("%d", &x);
-
-    printf("Please enter the x-coordinate:");
-    scanf("%d", &y);
-
-    printf("Please enter d for dig, f for flag and r to re-enter the co-ordinate:");
-    scanf(" %c", &opt);
+    printf("Please enter the co-ordinate and option (d = dig, f = flag, r = re-enter) in the format: x,y option \n");
+    scanf("%d,%d %c", &x, &y, &opt);
 
     if(opt == 'd'){
         dig(board_ptr,x,y);
     } else if (opt == 'f'){
-        /*flag that spot (change mask to 2??)*/
+        /*flag that spot (change mask to 2)*/
+        *(board_ptr->mask + (((board_ptr->boardSize) * y) + x)) = 2;
     } else if (opt == 'r'){
-        oneMove(board_ptr);
+        return;
     } else {
         printf("Please only enter either d,f or s. Try again. \n");
-        oneMove(board_ptr);
     }
 }
 
@@ -121,17 +129,14 @@ int win(struct gameBoard * board_ptr){
 
     /* Win if no 0's left in the mask */
 
-    int win = 1;
-
     for ( int y = 0; y < board_ptr->boardSize; y++){
         for( int x = 0 ; x < board_ptr->boardSize; x++){
             if (board_ptr->mask[(y*(board_ptr->boardSize))+x] == 0){
-                win = 0;
-                break;
+                return 0;
             }
         }
     }  
 
-    return win;  
+    return 1;  
 }
 

@@ -1,6 +1,6 @@
 To Do:
-- reveal sqaure function
-- "one move" function (reveal square or die)
-- make OnMove return an integer to check if game has been lost or not
 - add checks for size of x and y entered (avoid seg faults)
-
+- edit display to work with double digits
+- get replay option working (loose)
+- get replay option working (win)
+- comment

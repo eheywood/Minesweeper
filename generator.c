@@ -51,7 +51,7 @@ int8_t getNeighbourMines (struct gameBoard * board_ptr, uint8_t x, uint8_t y){
 
     for (int x_offset = -1; x_offset < 2; x_offset++) {
         for (int y_offset = -1; y_offset < 2; y_offset++) {
-            if ((x + x_offset < 0) || (x + x_offset > board_ptr->boardSize) || (y + y_offset < 0) || (y + y_offset > board_ptr->boardSize)) {
+            if ((x + x_offset < 0) || (x + x_offset >= board_ptr->boardSize) || (y + y_offset < 0) || (y + y_offset >= board_ptr->boardSize)) {
                 continue;
             }
 

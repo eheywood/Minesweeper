@@ -82,7 +82,7 @@ int main() {
 
     while(win(&board) == 0){
         oneMove(&board);
-        printBoard(&board);
+        printBoard(&board);      
     }
 
 
@@ -93,12 +93,31 @@ void reveal(struct gameBoard * board_ptr, int x, int y){
     /* When a player chooses to dig and doesnt hit a mine. 
     Calculates what to reveal to the player. */
 
+    *(board_ptr->mask + (board_ptr->boardSize * y) + x) = 1;
+
+    if (*(board_ptr->board + (board_ptr->boardSize * y) + x) == 0) {
+        
+        for (int x_offset = -1; x_offset < 2; x_offset++) {
+            for (int y_offset = -1; y_offset < 2; y_offset++) {
+                if ((x + x_offset < 0) || (x + x_offset >= board_ptr->boardSize) || (y + y_offset < 0) || (y + y_offset >= board_ptr->boardSize)) {
+                    continue;
+                }
+
+                if (*(board_ptr->mask + (board_ptr->boardSize * (y + y_offset) ) + (x + x_offset)) != 1) {
+                    reveal(board_ptr,x + x_offset, y + y_offset);
+                }
+                
+            }
+        }
+    }
+
+
 
 }
 
 void dig(struct gameBoard * board_ptr, int x, int y){
     if (board_ptr->board[(y*(board_ptr->boardSize))+x] == -1){
-        printf("Oh no! You hit a mine! Game over.");
+        lost();
     } else {
         reveal (board_ptr,x,y);
     }
@@ -110,7 +129,7 @@ void oneMove(struct gameBoard * board_ptr){
     char opt;
 
     printf("Please enter the co-ordinate and option (d = dig, f = flag, r = re-enter) in the format: x,y option \n");
-    scanf("%d,%d %c", &x, &y, &opt);
+    scanf(" %d,%d %c", &x, &y, &opt);
 
     if(opt == 'd'){
         dig(board_ptr,x,y);
@@ -122,6 +141,7 @@ void oneMove(struct gameBoard * board_ptr){
     } else {
         printf("Please only enter either d,f or s. Try again. \n");
     }
+
 }
 
 
@@ -140,3 +160,18 @@ int win(struct gameBoard * board_ptr){
     return 1;  
 }
 
+void lost(){
+    char opt;
+    printf("You hit a mine! Would you like to play again? y/n \n");
+    scanf(" %c", &opt);
+    
+    if(opt == "y"){
+        main();
+    } else if (opt == "n"){
+        return;
+    } else {
+        printf("Please only enter y or n \n");
+        lost();
+    }
+
+}

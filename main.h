@@ -16,4 +16,6 @@ void oneMove(struct gameBoard * board_ptr);
 
 int win(struct gameBoard * board_ptr);
 
+void lost();
+
 #endif
